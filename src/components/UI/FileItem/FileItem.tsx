@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { FaFileAlt } from 'react-icons/fa';
+import { FaFileAlt, FaImage } from 'react-icons/fa';
 
 import { getStaticFileRoute } from '@/helpers/static/getStaticRoute';
 
@@ -15,10 +15,14 @@ export const FileItem: FC<Props> = ({ fileName, filePath }) => {
     window.open(getStaticFileRoute(filePath), '_blank');
   };
 
+  const fileExtension = fileName.split('.').pop();
+
+  const FileImage = fileExtension === 'png' ? FaImage : FaFileAlt;
+
   return (
     <div onClick={onClick} className='flex gap-2 items-center'>
       <div>
-        <FaFileAlt size={24} />
+        <FileImage size={24} color='#4341da' />
       </div>
       <div>{fileName}</div>
     </div>
