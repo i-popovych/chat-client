@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { MdOutlineAttachFile } from 'react-icons/md';
 
 import { DropPopup } from '@/components/DropPopup/DropPopup';
+import { FileItem } from '@/components/UI/FileItem/FileItem';
 
 type Props = {
   handleSendMessage: (message: string, files?: File[]) => void;
@@ -33,7 +34,7 @@ export const ChatFooter: FC<Props> = ({ handleSendMessage }) => {
 
   const renderFilesList = () => {
     return uploadedFiles.map((file) => {
-      return <div key={file.name}>{file.name}</div>;
+      return <FileItem key={file.name} fileName={file.name} />;
     });
   };
 
@@ -58,7 +59,7 @@ export const ChatFooter: FC<Props> = ({ handleSendMessage }) => {
           Send
         </button>
       </div>
-      <div>{renderFilesList()}</div>
+      <div className='flex gap-3 mt-4'>{renderFilesList()}</div>
     </footer>
   );
 };

@@ -44,7 +44,6 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
   };
 
   const onSendMessage = (message: string, files?: File[]) => {
-    debugger;
     const sendObject = {
       groupId: currentGroupId,
       userId: user.user?.id,
