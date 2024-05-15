@@ -6,7 +6,7 @@ import { publicRoutes } from './libs/constants/publicRoutes';
 
 export const Routes = () => {
   const { user } = useAppSelector((state) => state.user);
-  debugger;
+
   const isAutorized = user;
 
   const routes = [...(!isAutorized ? publicRoutes : []), ...privateRoutes];

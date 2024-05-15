@@ -10,31 +10,62 @@ const $baseAPI = axios.create({
 });
 
 $baseAPI.interceptors.request.use((config) => {
-  if (config.headers.Authorization) return config;
-
-  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+  const token = authStorage.getAccessToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 
+let isRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token: Token | null = null) => {
+  failedQueue.forEach((prom: any) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
+
 $baseAPI.interceptors.response.use(
-  (config) => {
-    return config;
-  },
+  async (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && error.config && !error.config._isRetry) {
+
+    if (error.response.status === 401 && !originalRequest._isRetry) {
+      if (isRefreshing) {
+        return new Promise<any>((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        });
+      }
+
       originalRequest._isRetry = true;
+      isRefreshing = true;
+
       try {
         const { data } = await axios.get<Token>(`${BASE_URL}/refresh`, {
           withCredentials: true,
         });
+
         authStorage.setTokens(data.authorizationToken, data.refreshToken);
-        return $baseAPI.request(originalRequest);
+        originalRequest.headers.Authorization = 'Bearer ' + data.authorizationToken;
+        processQueue(null, data);
+        return await $baseAPI(originalRequest);
       } catch (e) {
-        alert('User is not authorized');
+        processQueue(e, null);
+        alert('You are not authorized');
+        return Promise.reject(e);
+      } finally {
+        isRefreshing = false;
       }
     }
-    throw error;
+
+    return Promise.reject(error);
   }
 );
 

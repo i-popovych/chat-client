@@ -27,7 +27,7 @@ export const Login = () => {
       authStorage.setTokens(response.data.authorizationToken, response.data.refreshToken);
       Notification.success('Login successful');
 
-      navigate(PrivateRoutes.MAIN);
+      navigate(PrivateRoutes.PROFILE);
     } catch (error) {
       console.error('[REGISTRATION ERROR]', error);
       Notification.error('Login failed');
