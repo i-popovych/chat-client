@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { UserAvatar } from '@/components/UserAvatar/UserAvatar';
+import { AvatarSelectionModal } from '@/pages/profile/libs/AvatarSelectionModal';
 import { useAppSelector } from '@/redux/hooks';
 
 export const Profile = () => {
@@ -10,7 +11,6 @@ export const Profile = () => {
 
   const onAvatarClick = () => {
     setIsShowAvatarModal((prev) => !prev);
-
   };
 
   return (
@@ -18,8 +18,14 @@ export const Profile = () => {
       <div className=''>
         <span>{user?.username}</span>
       </div>
-      <div>
+      <div onClick={onAvatarClick}>
         <UserAvatar />
+      </div>
+      <div>
+        <AvatarSelectionModal
+          handleClose={() => setIsShowAvatarModal(false)}
+          isOpen={isShowAvatarModal}
+        />
       </div>
     </div>
   );
