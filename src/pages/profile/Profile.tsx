@@ -27,9 +27,9 @@ export const ProfilePage = () => {
   return (
     <>
       {user && <UserInfo username={user.email} />}
-      <div className='flex'>
+      <div className='flex justify-between py-15 items-center'>
         <CreateProject refetchProjects={refetchProjects} />
-        <ProjectJoin />
+        <ProjectJoin refetchProjects={refetchProjects} />
       </div>
       <div className='flex justify-center'>
         {projectsLoading && <p>Loading...</p>}

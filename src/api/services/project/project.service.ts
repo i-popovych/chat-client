@@ -5,6 +5,10 @@ class ProjectService {
   postProject(params: CreateProject) {
     return $baseAPI.post('projects', { ...params });
   }
+
+  projectJoin(params: { project_id: string }) {
+    return $baseAPI.get(`projects/join/${params.project_id}`);
+  }
 }
 
 export const projectService = new ProjectService();

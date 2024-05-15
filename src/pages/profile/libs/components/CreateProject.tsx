@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 
 import { projectService } from '../../../../api/services/project/project.service';
+import { Button } from '../../../../components/UI/Button/Button';
 import { Notification } from '../../../../packages/notification';
 
 type Props = {
@@ -33,17 +34,21 @@ export const CreateProject: FC<Props> = ({ refetchProjects }) => {
 
   return (
     <div>
-      <div onClick={onCreateBthClick}>Create Project</div>
+      <div onClick={onCreateBthClick} className='cursor-pointer hover:drop-shadow text-xl'>
+        Create Project
+      </div>
       {isForm && (
-        <>
-          <div>Project Name</div>
-          <div className='bg-[red]'>
-            <input type='text' value={projectName} onChange={onChange} />
+        <div className='flex flex-col gap-2 text-md mt-2'>
+          <div className=' flex gap-1'>
+            <div className='w-[110px] text-[1.1em]'>Project Name:</div>
+            <div>
+              <input type='text' value={projectName} onChange={onChange} />
+            </div>
           </div>
           <div>
-            <button onClick={onCreateProject}>Create</button>
+            <Button text='Create' handleClick={onCreateProject} />
           </div>
-        </>
+        </div>
       )}
     </div>
   );

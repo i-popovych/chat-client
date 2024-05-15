@@ -6,6 +6,16 @@
   box-sizing: border-box;
 }
 
-body {
+html,
+body,
+#root {
   margin: 0;
+  height: 100%;
+  background-color: #dbdad8;
+}
+
+.wrapper {
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }

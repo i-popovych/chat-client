@@ -9,8 +9,8 @@ type Props = {
 
 export const ProjectList: FC<Props> = ({ projects }) => {
   const renderProjects = () => {
-    return projects.map((project) => <ProjectItem key={project.id} project={project} />);
+    return projects.map((project, index) => <ProjectItem key={project.id} project={project} />);
   };
 
-  return <div>{renderProjects()}</div>;
+  return <div className='max-w-[600px] w-full flex flex-col gap-3 mt-4'>{renderProjects()}</div>;
 };

@@ -16,7 +16,7 @@ export const App = () => {
   if (!isAuthInitialized) return <div> </div>;
 
   return (
-    <div className='px-12'>
+    <div className='wrapper'>
       <Suspense fallback={<Loader />}>
         <Routes />
       </Suspense>
