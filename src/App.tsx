@@ -16,11 +16,11 @@ export const App = () => {
   if (!isAuthInitialized) return <div> </div>;
 
   return (
-    <div className='wrapper'>
+    <>
       <Suspense fallback={<Loader />}>
         <Routes />
       </Suspense>
       <NotificationSettings />
-    </div>
+    </>
   );
 };
