@@ -25,6 +25,12 @@ type Props = {
   currentGroupId: number;
 };
 
+type CreateMessageParams = {
+  groupId: number;
+  content: string;
+  files?: { data: File; name: string }[];
+};
+
 const ONLINE = getRandomInt(10, 25);
 
 export const Chat: FC<Props> = ({ currentGroupId }) => {
@@ -63,13 +69,13 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
   };
 
   const onSendMessage = (message: string, files?: File[]) => {
-    const sendObject = {
+    const sendObject: CreateMessageParams = {
       groupId: currentGroupId,
       content: message,
-    } as any;
+    };
 
     if (files && files.length) {
-      sendObject['files'] = files.map((file) => ({ data: file, name: file.name }));
+      sendObject.files = files.map((file) => ({ data: file, name: file.name }));
     }
 
     socket.emit(Events.SET_NEW_MESSAGE, sendObject);

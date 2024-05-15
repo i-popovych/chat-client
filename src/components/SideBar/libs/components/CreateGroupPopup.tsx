@@ -49,7 +49,7 @@ export const CreateGroupPopup: FC<Props> = ({ refetchGroups, handleClose, isOpen
         </div>
 
         <div className='flex gap-1 items-center flex-col mt-4'>
-          <div className='text-[1.1em]'>Group Name</div>
+          <div className='text-[1.1em] text-black'>Group Name</div>
           <div className='mt-2 max-w-[210px]'>
             <input
               type='text'

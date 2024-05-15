@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
-import { Login } from '../../../../pages/login';
-import { Registration } from '../../../../pages/registration/Registration';
-import { Wrapper } from '../../../UI/Wrapper';
-import { PublicRoutes } from './publicRoutes.enum';
+import { PublicRoutes } from '@/components/Routes/libs/constants/publicRoutes.enum';
+import { Login } from '@/pages/login';
+import { Wrapper } from '@/components/UI/Wrapper';
+import { Registration } from '@/pages/registration/Registration';
 
 export const publicRoutes = [
   {
@@ -12,11 +12,7 @@ export const publicRoutes = [
   },
   {
     path: PublicRoutes.LOGIN,
-    element: (
-      <Wrapper>
-        <Login />
-      </Wrapper>
-    ),
+    element: <Login />,
   },
   {
     path: PublicRoutes.REGISTRATION,

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { PrivateRoutes } from '@/components/Routes/libs/constants/privateRoutes.enum';
@@ -9,13 +10,16 @@ import { SelectChat } from './libs/SelectChat';
 
 export const Dashboard = () => {
   const { currentGroup } = useAppSelector((state) => state.group);
+  const { currentProject } = useAppSelector((state) => state.project);
 
   const navigate = useNavigate();
 
-  if (!currentGroup) {
-    navigate(PrivateRoutes.SELECT_PROJECT);
-    return;
-  }
+  useEffect(() => {
+    if (!currentProject) {
+      navigate(PrivateRoutes.SELECT_PROJECT);
+      return;
+    }
+  }, [currentProject]);
 
   return (
     <AppHeader>
