@@ -3,4 +3,5 @@ export enum Events {
   ROOM_GET_CONNECT = 'room:getConnect',
   SET_NEW_MESSAGE = 'message:set-new-message',
   GET_MESSAGE = 'message:get-message',
+  GET_USERS_ONLINE_COUNT = 'room:getUsersOnlineCount',
 }

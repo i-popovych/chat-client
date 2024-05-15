@@ -6,6 +6,7 @@ import { User } from 'entities/User';
 
 import { groupService } from '@/api/services/group/group.service';
 import { MessageResponseItem } from '@/api/services/message/libs/MessageResponse.type';
+import { RoomGetConnect } from '@/api/socket/libs/RoomGetConnect.type';
 import { ChatFooter } from '@/components/Chat/libs/components/ChatFooter';
 import { UserListPopup } from '@/components/Chat/libs/components/UserListPopup';
 import { GetMessage } from '@/components/Chat/libs/types/GetMessage.type';
@@ -30,6 +31,8 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
 
   const [isSocketConnect, setIsSocketConnect] = useState(false);
   const [isAddUserPopup, setIsAddUserPopup] = useState(false);
+
+  const [userOnlineCount, setUserOnlineCount] = useState(0);
 
   const fetchMessages = async () => {
     try {
@@ -93,9 +96,15 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
       setIsSocketConnect(true);
     });
 
+    socket.on(Events.GET_USERS_ONLINE_COUNT, (data: { userOnlineCount: number }) => {
+      setUserOnlineCount(data.userOnlineCount);
+    });
+
     socket.on(Events.GET_MESSAGE, onGetMessage);
 
     return () => {
+      socket.off(Events.ROOM_GET_CONNECT);
+      socket.off(Events.GET_USERS_ONLINE_COUNT);
       socket.off(Events.GET_MESSAGE, onGetMessage);
     };
   }, [currentGroupId]);
@@ -121,7 +130,7 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
             onClick={onSeeAllUserClick}
             className='text-1xl font-semibold flex items-center gap-2 pr-5 hover:cursor-pointer hover:text-[blue]'
           >
-            <div>120 online</div>
+            <div>{userOnlineCount} online</div>
             <div>
               <FaChevronDown />
             </div>
