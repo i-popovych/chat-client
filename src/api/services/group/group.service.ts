@@ -10,6 +10,12 @@ class GroupService {
     });
   }
 
+  getAllUserGroups(params: GetGroupParams) {
+    return $baseAPI.get('group/user', {
+      params,
+    });
+  }
+
   createGroup(params: CreateGroupParams) {
     return $baseAPI.post('group', params);
   }

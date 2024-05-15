@@ -2,7 +2,6 @@ import { getStaticRoute } from '@/helpers/static/getStaticRoute';
 import { useAppSelector } from '@/redux/hooks';
 
 export const UserAvatar = () => {
-  debugger;
   const user = useAppSelector((state) => state.user.user);
 
   if (!user || !user.avatar) return null;

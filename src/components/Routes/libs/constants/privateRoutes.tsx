@@ -1,8 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
+import { Profile } from '@/pages/profile/Profile';
+
 import { Dashboard } from '../../../../pages/dashboard/Dashboard';
 import { SelectProject } from '../../../../pages/selectProject/SelectProject';
-import { Wrapper } from '../../../UI/Wrapper';
 import { ProtectedRoute } from '../../ProtectedRoute';
 import { PrivateRoutes } from './privateRoutes.enum';
 
@@ -22,6 +23,10 @@ export const privateRoutes = [
       {
         path: PrivateRoutes.DASHBOARD,
         element: <Dashboard />,
+      },
+      {
+        path: PrivateRoutes.PROFILE,
+        element: <Profile />,
       },
       {
         path: '*',

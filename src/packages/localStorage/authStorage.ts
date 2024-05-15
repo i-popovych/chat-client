@@ -10,6 +10,11 @@ class AuthStorage extends LocalStorage {
     this.setRefreshToken(refreshToken);
   }
 
+  clearTokens() {
+    this.removeItem('accessToken');
+    this.removeItem('refreshToken');
+  }
+
   setAccessToken(token: string) {
     this.setItem('accessToken', token);
   }

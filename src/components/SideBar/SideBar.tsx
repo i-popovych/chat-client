@@ -35,7 +35,7 @@ export const AppHeader: FC<Props> = ({ children }) => {
     if (!project.currentProject) return;
 
     try {
-      const { data: groups } = await groupService.getAllProjectGroups({
+      const { data: groups } = await groupService.getAllUserGroups({
         project: project.currentProject.id,
       });
 
