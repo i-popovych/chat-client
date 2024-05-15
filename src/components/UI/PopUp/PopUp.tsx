@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 
 import { CloseIcon } from '../../../assets/images';
 
-type Props = {
+export interface PopUpProps {
   isOpen: boolean;
   handleClose: () => void;
   children: React.ReactNode;
-};
+}
 
-export const Popup: FC<Props> = ({ isOpen, handleClose, children }) => {
+export const Popup: FC<PopUpProps> = ({ isOpen, handleClose, children }) => {
   if (!isOpen) return null;
 
   return (

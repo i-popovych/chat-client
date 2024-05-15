@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { FaChevronDown } from 'react-icons/fa6';
 
 import { ChatFooter } from '@/components/Chat/libs/components/ChatFooter';
 
@@ -9,6 +10,7 @@ import { useLoading } from '../../hooks/useLoading';
 import { useAppSelector } from '../../redux/hooks';
 import { MessageList } from './libs/components/MessageList';
 import './libs/styles/chat.scss';
+import { AllUserListModal } from '@/components/Chat/libs/components/AllUserListModal';
 
 type Props = {
   currentGroupId: number;
@@ -19,6 +21,7 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
   const group = useAppSelector((state) => state.group);
 
   const [isSocketConnect, setIsScoketConnect] = useState(false);
+  const [isAllUserModal, setIsAlluserModal] = useState(false);
 
   const fetchMessages = async () => {
     try {
@@ -48,6 +51,10 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
     });
   };
 
+  const onSeeAllUserClick = () => {
+    setIsAlluserModal((prev) => !prev);
+  };
+
   useEffect(() => {
     socket.emit(Events.ROOM_SET_CONNECT, { groupId: currentGroupId, userId: user.user?.id });
     socket.on(Events.ROOM_GET_CONNECT, () => {
@@ -65,13 +72,24 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
 
   return (
     <div className='flex grow flex-col relative chat  bg-[#bababa]'>
-      <header className='bg-white text-gray-700 py-3 pl-5'>
+      <header className='bg-white text-gray-700 py-3 pl-5 flex justify-between items-center'>
         <h1 className='text-2xl font-semibold'>{group.currentGroup?.group_name}</h1>
+        <div
+          onClick={onSeeAllUserClick}
+          className='text-1xl font-semibold flex items-center gap-2 pr-5 hover:cursor-pointer hover:text-[blue]'
+        >
+          <div>120 online</div>
+          <div>
+            <FaChevronDown />
+          </div>
+        </div>
       </header>
 
       {messagesListRes && (
         <MessageList messages={messagesListRes} userId={user.user?.id as number} />
       )}
+
+      <AllUserListModal currentGroupId={currentGroupId} handleClose={onSeeAllUserClick} isOpen={isAllUserModal}/>
 
       <ChatFooter handleSendMessage={onSendMessage} />
     </div>

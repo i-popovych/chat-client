@@ -16,6 +16,10 @@ class GroupService {
     });
   }
 
+  getAllGroupUsers(params: { groupId: number }) {
+    return $baseAPI.get(`group/${params.groupId}/users`);
+  }
+
   createGroup(params: CreateGroupParams) {
     return $baseAPI.post('group', params);
   }

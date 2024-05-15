@@ -14,6 +14,10 @@ class UserService {
     return $baseAPI.get<Project[]>('/user/my-projects');
   }
 
+  getAllGroupUsers(groupId: number) {
+    return $baseAPI.get<User[]>(`/user/group/${groupId}`);
+  }
+
   updateAvatar(avatarName: string) {
     return $baseAPI.put<User>('/user/avatar', { avatarName: avatarName });
   }

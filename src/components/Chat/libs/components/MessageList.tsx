@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { getStaticRoute } from '@/helpers/static/getStaticRoute';
+
 import { MessageResponseItem } from '../../../../api/services/message/libs/MessageResponse.type';
 import { MessageItem } from './MessageItem';
 
@@ -17,7 +19,7 @@ export const MessageList: FC<Props> = ({ messages, userId }) => {
             key={messageItem.id}
             isIncoming={messageItem.sender_id !== userId}
             message={messageItem.body}
-            avatarSrc='https://placehold.co/200x/ffa8e4/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato'
+            avatarSrc={getStaticRoute(messageItem.users.avatar)}
           />
         );
       })}
