@@ -1,6 +1,7 @@
+import $baseAPI from '@/api/axios';
+
 import { Project } from '../../../entities/Project';
 import { User } from '../../../entities/User';
-import $baseAPI from '../../axios';
 
 class UserService {
   profile(access_token?: string) {
@@ -11,6 +12,10 @@ class UserService {
 
   getProjects() {
     return $baseAPI.get<Project[]>('/user/my-projects');
+  }
+
+  updateAvatar(avatarName: string) {
+    return $baseAPI.put<User>('/user/avatar', { avatarName: avatarName });
   }
 }
 
