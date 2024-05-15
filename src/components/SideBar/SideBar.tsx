@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
 import { FaBell, FaChevronDown, FaUser } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +7,7 @@ import { Group } from 'entities/Group';
 
 import { groupService } from '@/api/services/group/group.service';
 import { PrivateRoutes } from '@/components/Routes/libs/constants/privateRoutes.enum';
+import { CreateGroupPopup } from '@/components/SideBar/libs/components/CreateGroupPopup';
 import { useLoading } from '@/hooks/useLoading';
 import { GroupsList } from '@/pages/dashboard/libs/GroupsList';
 import { setGroup } from '@/redux/features/groups/groupSlice';
@@ -19,6 +21,8 @@ export const AppHeader: FC<Props> = ({ children }) => {
   const project = useAppSelector((state) => state.project);
   const userState = useAppSelector((state) => state.user);
 
+  const [isShowGroupPopup, setIsShowGroupPopup] = useState(false);
+
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -31,7 +35,7 @@ export const AppHeader: FC<Props> = ({ children }) => {
     if (!project.currentProject) return;
 
     try {
-      const { data: groups } = await groupService.groupService({
+      const { data: groups } = await groupService.getAllProjectGroups({
         project: project.currentProject.id,
       });
 
@@ -45,7 +49,7 @@ export const AppHeader: FC<Props> = ({ children }) => {
     dispatch(setGroup(group));
   };
 
-  const { data: groupsList, loading } = useLoading(fetchGroup);
+  const { data: groupsList, refetchData } = useLoading(fetchGroup);
 
   if (!project.currentProject || !userState.user) return null;
 
@@ -72,7 +76,22 @@ export const AppHeader: FC<Props> = ({ children }) => {
             </div>
           </div>
         </div>
-        <div className='mt-6'>
+        <div className='mt-2 flex items-center text-lg text-white gap-2'>
+          <div>
+            <AiOutlinePlus size={22} fill='white' />
+          </div>
+          <div>
+            <span onClick={() => setIsShowGroupPopup(true)} className='cursor-pointer'>
+              Create Group
+            </span>
+          </div>
+          <CreateGroupPopup
+            handleClose={() => setIsShowGroupPopup(false)}
+            isOpen={isShowGroupPopup}
+            refetchGroups={refetchData}
+          />
+        </div>
+        <div className='mt-2'>
           <div>Groups:</div>
           {groupsList && <GroupsList groups={groupsList} handleGroupClick={handleGroupClick} />}
         </div>
