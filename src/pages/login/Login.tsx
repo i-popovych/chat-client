@@ -54,18 +54,12 @@ export const Login = () => {
 
   return (
     <section
-      className='body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0'
+      className='body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0 bg-[#a0a0a0]'
       style={{ fontFamily: 'Lato, sans-serif' }}
     >
-      <header className='max-w-lg mx-auto'>
-        <a href='#'>
-          <h1 className='text-4xl font-bold text-white text-center'>Startup</h1>
-        </a>
-      </header>
-
       <main className='bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl'>
         <section>
-          <h3 className='font-bold text-2xl'>Welcome to Startup</h3>
+          <h3 className='font-bold text-2xl'>Welcome</h3>
           <p className='text-gray-600 pt-2'>Sign in to your account.</p>
         </section>
 

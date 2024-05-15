@@ -63,7 +63,6 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
   const onSendMessage = (message: string, files?: File[]) => {
     const sendObject = {
       groupId: currentGroupId,
-      userId: user.user?.id,
       content: message,
     } as any;
 
@@ -91,7 +90,7 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
   };
 
   useEffect(() => {
-    socket.emit(Events.ROOM_SET_CONNECT, { groupId: currentGroupId, userId: user.user?.id });
+    socket.emit(Events.ROOM_SET_CONNECT, { groupId: currentGroupId });
     socket.on(Events.ROOM_GET_CONNECT, () => {
       setIsSocketConnect(true);
     });

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -43,18 +45,12 @@ export const Registration = () => {
 
   return (
     <section
-      className='body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0'
+      className='body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0 bg-[#a0a0a0]'
       style={{ fontFamily: 'Lato, sans-serif' }}
     >
-      <header className='max-w-lg mx-auto'>
-        <a href='#'>
-          <h1 className='text-4xl font-bold text-white text-center'>Startup</h1>
-        </a>
-      </header>
-
       <main className='bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl'>
         <section>
-          <h3 className='font-bold text-2xl'>Join Startup</h3>
+          <h3 className='font-bold text-2xl'>Join</h3>
           <p className='text-gray-600 pt-2'>Create your account.</p>
         </section>
 
@@ -140,9 +136,9 @@ export const Registration = () => {
             <div className='max-w-lg mx-auto text-center mt-12 mb-6'>
               <p>
                 Already have an account?{' '}
-                <a href='#' className='font-bold hover:underline'>
+                <Link to='/login' className='font-bold hover:underline'>
                   Sign in
-                </a>
+                </Link>
                 .
               </p>
             </div>
