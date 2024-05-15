@@ -26,7 +26,10 @@ export const ProjectItem: FC<Props> = ({ project }) => {
       <div className='cursor-pointer' onClick={onProjectClick}>
         <span className='hover:underline hover:underline-offset-1'>{project.project_name}</span>
       </div>
-      <div># {project.id}</div>
+      <div>
+        <span>Connection ID: </span>
+        <span>{project.id}</span>
+      </div>
     </div>
   );
 };

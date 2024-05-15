@@ -6,12 +6,16 @@ import { Group } from '../../../entities/Group';
 type Props = {
   group: Group;
   handleGroupClick: (group: Group) => void;
+  isSelected: boolean;
 };
 
-export const GroupItem: FC<Props> = ({ group, handleGroupClick }) => {
+export const GroupItem: FC<Props> = ({ group, handleGroupClick, isSelected }) => {
   const onGroupSelect = () => {
     handleGroupClick(group);
   };
+
+  const color = isSelected ? 'white' : '#d5d2d2';
+  console.log('🚀 ~ isSelected:', isSelected);
 
   return (
     <div
@@ -19,9 +23,11 @@ export const GroupItem: FC<Props> = ({ group, handleGroupClick }) => {
       onClick={onGroupSelect}
     >
       <div>
-        <MdGrid3X3 fill='white' />
+        <MdGrid3X3 fill={color} />
       </div>
-      <div className='group-name'>{group.group_name}</div>
+      <div className={`group-name hover:underline`} style={{ color }}>
+        {group.group_name}
+      </div>
     </div>
   );
 };

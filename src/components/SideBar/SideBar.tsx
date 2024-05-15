@@ -7,7 +7,9 @@ import { Group } from 'entities/Group';
 
 import { groupService } from '@/api/services/group/group.service';
 import { PrivateRoutes } from '@/components/Routes/libs/constants/privateRoutes.enum';
+import { BreakLine } from '@/components/SideBar/libs/components/BreakLine';
 import { CreateGroupPopup } from '@/components/SideBar/libs/components/CreateGroupPopup';
+import Accordion from '@/components/UI/Accordion/Accordion';
 import { getRandomInt } from '@/helpers/getRandomInt';
 import { useLoading } from '@/hooks/useLoading';
 import { GroupsList } from '@/pages/dashboard/libs/GroupsList';
@@ -71,20 +73,22 @@ export const AppHeader: FC<Props> = ({ children }) => {
             </div>
           </div>
         </div>
-        <div className='flex gap-7 text-white text-lg mt-3'>
+        <div className='flex gap-7 text-white text-lg mt-3 pl-3 mb-2'>
           <div
             onClick={onGroupClick}
             className='cursor-pointer hover:underline text-2xl flex gap-2 items-center'
           >
             <div>{project.currentProject.project_name}</div>
-            <div>
-              <FaChevronDown />
-            </div>
           </div>
         </div>
+        <BreakLine />
         <div className='mt-2 grow'>
-          <div>Groups:</div>
-          {groupsList && <GroupsList groups={groupsList} handleGroupClick={handleGroupClick} />}
+          <Accordion
+            content={
+              groupsList && <GroupsList groups={groupsList} handleGroupClick={handleGroupClick} />
+            }
+            title={<div>Groups</div>}
+          />
         </div>
         <div className='mb-3 flex items-center text-lg text-white gap-2'>
           <div>
