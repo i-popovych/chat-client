@@ -21,6 +21,7 @@ export const ChatFooter: FC<Props> = ({ handleSendMessage }) => {
     e.preventDefault();
     handleSendMessage(message, uploadedFiles);
     setMessage('');
+    setUploadedFiles([]);
   };
 
   const onDropZoneClick = () => {

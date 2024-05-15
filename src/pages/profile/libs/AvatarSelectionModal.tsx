@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Popup } from '@/components/UI/PopUp/PopUp';
-import { getStaticRoute } from '@/helpers/static/getStaticRoute';
+import { getStaticAvatarRoute } from '@/helpers/static/getStaticRoute';
 import { AvatarItem } from '@/pages/profile/libs/AvatarItem';
 
 type Props = {
@@ -20,7 +20,7 @@ export const AvatarSelectionModal: FC<Props> = ({ handleClose, isOpen, handleSel
           return (
             <AvatarItem
               key={avatar}
-              link={getStaticRoute(avatar)}
+              link={getStaticAvatarRoute(avatar)}
               handleClick={() => handleSelectAvatar(avatar)}
             />
           );

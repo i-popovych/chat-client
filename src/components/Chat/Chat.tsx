@@ -1,8 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa6';
 
+import { Message } from 'entities/Message';
+
+import { MessageResponseItem } from '@/api/services/message/libs/MessageResponse.type';
 import { AllUserListModal } from '@/components/Chat/libs/components/AllUserListModal';
 import { ChatFooter } from '@/components/Chat/libs/components/ChatFooter';
+import { GetMessage } from '@/components/Chat/libs/types/GetMessage.type';
 
 import { messageService } from '../../api/services/message/message.service';
 import { Events } from '../../api/socket/libs/events.enum';
@@ -35,12 +39,18 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
 
   const { data: messagesListRes, loading, setData } = useLoading(fetchMessages, [currentGroupId]);
 
-  const onGetMessage = (data: any) => {
-    setData((prev: any) => {
-      if (prev) return [...prev, data.content];
-      return data.content;
+  const onGetMessage = (data: GetMessage) => {
+    setData((prev: MessageResponseItem[]) => {
+      const message: Message = { ...data.message, files: [...data.files] };
+
+      const obj: MessageResponseItem = {
+        ...message,
+        users: data.users,
+      };
+
+      if (prev) return [...prev, obj];
+      return obj;
     });
-    console.log(data);
   };
 
   const onSendMessage = (message: string, files?: File[]) => {

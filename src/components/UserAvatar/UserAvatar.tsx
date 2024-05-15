@@ -1,4 +1,4 @@
-import { getStaticRoute } from '@/helpers/static/getStaticRoute';
+import { getStaticAvatarRoute } from '@/helpers/static/getStaticRoute';
 import { useAppSelector } from '@/redux/hooks';
 
 export const UserAvatar = () => {
@@ -6,7 +6,7 @@ export const UserAvatar = () => {
 
   if (!user || !user.avatar) return null;
 
-  const imgLink = getStaticRoute(user.avatar);
+  const imgLink = getStaticAvatarRoute(user.avatar);
 
   return (
     <div className='flex items-center gap-2'>

@@ -4,7 +4,7 @@ import { User } from 'entities/User';
 
 import { groupService } from '@/api/services/group/group.service';
 import { PopUpProps, Popup } from '@/components/UI/PopUp/PopUp';
-import { getStaticRoute } from '@/helpers/static/getStaticRoute';
+import { getStaticAvatarRoute } from '@/helpers/static/getStaticRoute';
 import { useLoading } from '@/hooks/useLoading';
 
 interface Props extends Omit<PopUpProps, 'children'> {
@@ -32,7 +32,7 @@ export const AllUserListModal: FC<Props> = ({ handleClose, isOpen, currentGroupI
       return (
         <div className='flex'>
           <div>
-            <img src={getStaticRoute(user.avatar)} alt='avatar' className='w-[50px]' />
+            <img src={getStaticAvatarRoute(user.avatar)} alt='avatar' className='w-[50px]' />
           </div>
           <div>{user.username}</div>
         </div>

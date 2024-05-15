@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { getStaticRoute } from '@/helpers/static/getStaticRoute';
+import { getStaticAvatarRoute } from '@/helpers/static/getStaticRoute';
 
 import { MessageResponseItem } from '../../../../api/services/message/libs/MessageResponse.type';
 import { MessageItem } from './MessageItem';
@@ -11,15 +11,20 @@ type Props = {
 };
 
 export const MessageList: FC<Props> = ({ messages, userId }) => {
+  const sortedMessages = messages.sort((a, b) => {
+    return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+  });
+
   return (
     <div className='h-screen overflow-y-auto p-4 pb-36'>
-      {messages.map((messageItem) => {
+      {sortedMessages.map((messageItem) => {
         return (
           <MessageItem
             key={messageItem.id}
             isIncoming={messageItem.sender_id !== userId}
             message={messageItem.body}
-            avatarSrc={getStaticRoute(messageItem.users.avatar)}
+            avatarSrc={getStaticAvatarRoute(messageItem.users.avatar)}
+            files={messageItem.files}
           />
         );
       })}
