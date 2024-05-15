@@ -25,7 +25,6 @@ export const CreateGroupPopup: FC<Props> = ({ refetchGroups, handleClose, isOpen
 
   const onCreateGroup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    debugger;
     if (!user?.id || !currentProject) return;
     try {
       await groupService.createGroup({

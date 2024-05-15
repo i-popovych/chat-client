@@ -5,4 +5,5 @@ export type User = {
   username: string;
   createdAt: '2024-02-18T17:03:24.198Z';
   updatedAt: '2024-02-18T17:03:24.198Z';
+  avatar: string;
 };

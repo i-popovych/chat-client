@@ -1,4 +1,4 @@
 import { Message } from '../../../../entities/Message';
-import { User } from '../../user/libs/types/user.type';
+import { User } from '../../../../entities/User';
 
 export type MessageResponseItem = Message & { users: User };

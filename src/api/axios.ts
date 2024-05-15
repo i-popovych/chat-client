@@ -3,7 +3,7 @@ import axios from 'axios';
 import { authStorage } from '../packages/localStorage/authStorage';
 import { Token } from './services/auth/libs/types/Token.type';
 
-export const BASE_URL = 'http://localhost:7000/';
+export const BASE_URL = import.meta.env.VITE_BASE_API_URL as string;
 
 const $baseAPI = axios.create({
   baseURL: BASE_URL,

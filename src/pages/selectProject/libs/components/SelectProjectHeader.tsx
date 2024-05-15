@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
 
+import { UserInfo } from '@/pages/selectProject/libs/components/UserInfo';
+
 import { Header } from '../../../../components/layout/Header/Header';
 import { CreateProject } from './CreateProjectModal';
 import { ProjectJoinModal } from './ProjectJoin';
@@ -32,18 +34,23 @@ export const SelectProjectHeader: FC<Props> = ({ children, refetchProjects }) =>
   return (
     <>
       <Header>
-        <div className='flex gap-7 items-center ml-5'>
-          <div
-            onClick={onCreateProject}
-            className='text-xl text-white cursor-pointer hover:shadow-sm hover:underline'
-          >
-            <span>Create Project</span>
+        <div className='flex items-center justify-between w-full'>
+          <div className='flex gap-7 items-center ml-5'>
+            <div
+              onClick={onCreateProject}
+              className='text-xl text-white cursor-pointer hover:shadow-sm hover:underline'
+            >
+              <span>Create Project</span>
+            </div>
+            <div
+              onClick={onJoinProject}
+              className='text-xl text-white cursor-pointer hover:shadow-sm hover:underline'
+            >
+              <span>Join to the Project</span>
+            </div>
           </div>
-          <div
-            onClick={onJoinProject}
-            className='text-xl text-white cursor-pointer hover:shadow-sm hover:underline'
-          >
-            <span>Join to the Project</span>
+          <div className='pr-5'>
+            <UserInfo />
           </div>
         </div>
       </Header>

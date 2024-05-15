@@ -13,6 +13,7 @@
       "@/api/*": ["./api/*"],
       "@/redux/*": ["./redux/*"],
       "@/hooks/*": ["./hooks/*"],
+      "@/helpers/*": ["./helpers/*"],
     },
 
     /* Bundler mode */
