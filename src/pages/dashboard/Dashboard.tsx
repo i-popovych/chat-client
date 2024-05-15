@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { AppHeader } from '@/components/AppHeader/AppHeader';
+
 import { groupService } from '../../api/services/group/group.service';
 import { Chat } from '../../components/Chat/Chat';
 import { useLoading } from '../../hooks/useLoading';
@@ -31,14 +33,16 @@ export const Dashboard = () => {
   const { data: groupsList, loading } = useLoading(fetchGroup);
 
   return (
-    <div className='flex justify-between px-5  mx-auto'>
-      <div className='w-[300px]'>
-        <h1>Groups</h1>
-        {groupsList && <GroupsList groups={groupsList} handleGroupClick={handleGroupClick} />}
+    <AppHeader>
+      <div className='flex justify-between px-5  mx-auto'>
+        <div className='w-[300px]'>
+          <h1>Groups</h1>
+          {groupsList && <GroupsList groups={groupsList} handleGroupClick={handleGroupClick} />}
+        </div>
+        <div className='flex grow max-w-[1000px] max-h-[calc(100vh-10px)]'>
+          {currentGroupId ? <Chat currentGroupId={currentGroupId} /> : <SelectChat />}
+        </div>
       </div>
-      <div className='flex grow max-w-[1000px] max-h-[calc(100vh-10px)]'>
-        {currentGroupId ? <Chat currentGroupId={currentGroupId} /> : <SelectChat />}
-      </div>
-    </div>
+    </AppHeader>
   );
 };
