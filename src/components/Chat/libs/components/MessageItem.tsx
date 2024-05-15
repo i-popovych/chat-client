@@ -11,7 +11,7 @@ export const MessageItem: FC<MessageItemProps> = ({ isIncoming = true, message, 
     isIncoming ? 'justify-start' : 'justify-end'
   } mb-4 cursor-pointer`;
 
-  const backgroundColor = isIncoming ? 'white' : '[#6366f1]';
+  const backgroundColor = isIncoming ? 'bg-white' : 'bg-[#6366f1]';
 
   return (
     <div className={containerClassName}>
@@ -24,7 +24,7 @@ export const MessageItem: FC<MessageItemProps> = ({ isIncoming = true, message, 
           />
         </div>
         <div
-          className={`flex max-w-96 bg-${backgroundColor} ${isIncoming ? 'text-black' : 'text-white'} rounded-lg p-3 gap-3`}
+          className={`flex max-w-96 ${backgroundColor} ${isIncoming ? 'text-black' : 'text-white'} rounded-lg p-3 gap-3`}
         >
           <p>{message}</p>
         </div>

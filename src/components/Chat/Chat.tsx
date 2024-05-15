@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
+import { ChatFooter } from '@/components/Chat/libs/components/ChatFooter';
+
 import { messageService } from '../../api/services/message/message.service';
 import { Events } from '../../api/socket/libs/events.enum';
 import { socket } from '../../api/socket/socketInstance';
@@ -14,8 +16,9 @@ type Props = {
 
 export const Chat: FC<Props> = ({ currentGroupId }) => {
   const user = useAppSelector((state) => state.user);
+  const group = useAppSelector((state) => state.group);
+
   const [isSocketConnect, setIsScoketConnect] = useState(false);
-  const [message, setMessage] = useState('');
 
   const fetchMessages = async () => {
     try {
@@ -37,9 +40,17 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
     console.log(data);
   };
 
+  const onSendMessage = (message: string) => {
+    socket.emit(Events.SET_NEW_MESSAGE, {
+      groupId: currentGroupId,
+      userId: user.user?.id,
+      content: message,
+    });
+  };
+
   useEffect(() => {
     socket.emit(Events.ROOM_SET_CONNECT, { groupId: currentGroupId, userId: user.user?.id });
-    socket.on(Events.ROOM_GET_CONNECT, (data) => {
+    socket.on(Events.ROOM_GET_CONNECT, () => {
       setIsScoketConnect(true);
     });
 
@@ -50,44 +61,19 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
     };
   }, [currentGroupId]);
 
-  const onSendMessage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    socket.emit(Events.SET_NEW_MESSAGE, {
-      groupId: currentGroupId,
-      userId: user.user?.id,
-      content: message,
-    });
-  };
-
   if (loading || !isSocketConnect) return <div>Loading...</div>;
 
   return (
-    <div className='flex grow flex-col relative chat py-2 bg-[#bababa]'>
-      <header className='bg-white p-4 text-gray-700'>
-        <h1 className='text-2xl font-semibold'>{user.user?.username}</h1>
+    <div className='flex grow flex-col relative chat  bg-[#bababa]'>
+      <header className='bg-white text-gray-700 py-3 pl-5'>
+        <h1 className='text-2xl font-semibold'>{group.currentGroup?.group_name}</h1>
       </header>
 
       {messagesListRes && (
         <MessageList messages={messagesListRes} userId={user.user?.id as number} />
       )}
 
-      <footer className='bg-white border-t border-gray-300 py-2 absolute bottom-1 w-full'>
-        <div className='flex items-center'>
-          <input
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            type='text'
-            placeholder='Type a message...'
-            className='w-full p-2 rounded-md border border-gray-400 focus:outline-none focus:border-blue-500'
-          />
-          <button
-            className='bg-indigo-500 text-white px-4 py-2 rounded-md ml-2'
-            onClick={onSendMessage}
-          >
-            Send
-          </button>
-        </div>
-      </footer>
+      <ChatFooter handleSendMessage={onSendMessage} />
     </div>
   );
 };

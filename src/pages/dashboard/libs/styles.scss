@@ -1,0 +1,7 @@
+.group-item_hover {
+  &:hover {
+    > .group-name {
+      text-decoration: underline;
+    }
+  }
+}

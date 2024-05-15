@@ -5,7 +5,7 @@ import { GroupItem } from './GroupItem';
 
 type Props = {
   groups: Group[];
-  handleGroupClick: (groupId: number) => void;
+  handleGroupClick: (group: Group) => void;
 };
 
 export const GroupsList: FC<Props> = ({ groups, handleGroupClick }) => {
@@ -15,5 +15,5 @@ export const GroupsList: FC<Props> = ({ groups, handleGroupClick }) => {
     ));
   };
 
-  return <div className='max-w-[600px] w-full flex flex-col gap-3 mt-4'>{renderGroups()}</div>;
+  return <div className='max-w-[600px] w-full flex flex-col '>{renderGroups()}</div>;
 };
