@@ -6,5 +6,5 @@ export interface Message {
   sender_id: number;
   group_id: number;
   files: File[];
-  createdAt: Date;
+  createdAt: string;
 }

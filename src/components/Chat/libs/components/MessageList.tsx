@@ -23,7 +23,9 @@ export const MessageList: FC<Props> = ({ messages, userId }) => {
             key={messageItem.id}
             isIncoming={messageItem.sender_id !== userId}
             message={messageItem.body}
+            creatingDate={messageItem.createdAt}
             avatarSrc={getStaticAvatarRoute(messageItem.users.avatar)}
+            username={messageItem.users.username}
             files={messageItem.files}
           />
         );
