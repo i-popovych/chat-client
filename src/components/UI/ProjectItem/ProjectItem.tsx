@@ -22,11 +22,11 @@ export const ProjectItem: FC<Props> = ({ project }) => {
   };
 
   return (
-    <div className='flex gap-7 justify-between py-3 px-2 project-item'>
+    <div className='flex gap-7 justify-between p-5 text-xl bg-[#bbbbbb] rounded-3xl shadow-xl '>
       <div className='cursor-pointer' onClick={onProjectClick}>
-        Project name: {project.project_name}
+        <span className='hover:underline hover:underline-offset-1'>{project.project_name}</span>
       </div>
-      <div>Project join id: {project.id}</div>
+      <div># {project.id}</div>
     </div>
   );
 };

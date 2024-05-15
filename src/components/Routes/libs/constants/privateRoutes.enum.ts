@@ -1,5 +1,5 @@
 export enum PrivateRoutes {
   MAIN = '/',
-  PROFILE = '/profile',
+  SELECT_PROJECT = '/select-project',
   DASHBOARD = '/dashboard',
 }

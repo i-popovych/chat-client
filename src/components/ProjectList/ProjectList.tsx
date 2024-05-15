@@ -12,5 +12,5 @@ export const ProjectList: FC<Props> = ({ projects }) => {
     return projects.map((project, index) => <ProjectItem key={project.id} project={project} />);
   };
 
-  return <div className='max-w-[600px] w-full flex flex-col gap-3 mt-4'>{renderProjects()}</div>;
+  return <div className='max-w-[600px] w-full flex flex-col gap-7 mt-4'>{renderProjects()}</div>;
 };

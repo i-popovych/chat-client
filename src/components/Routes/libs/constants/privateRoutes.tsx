@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
 import { Dashboard } from '../../../../pages/dashboard/Dashboard';
-import { ProfilePage } from '../../../../pages/profile/Profile';
+import { SelectProject } from '../../../../pages/selectProject/SelectProject';
 import { Wrapper } from '../../../UI/Wrapper';
 import { ProtectedRoute } from '../../ProtectedRoute';
 import { PrivateRoutes } from './privateRoutes.enum';
@@ -13,19 +13,19 @@ export const privateRoutes = [
     children: [
       {
         path: PrivateRoutes.MAIN,
-        element: <Navigate to={PrivateRoutes.PROFILE} />,
+        element: <Navigate to={PrivateRoutes.SELECT_PROJECT} />,
       },
       {
-        path: PrivateRoutes.PROFILE,
-        element: (
-          <Wrapper>
-            <ProfilePage />
-          </Wrapper>
-        ),
+        path: PrivateRoutes.SELECT_PROJECT,
+        element: <SelectProject />,
       },
       {
         path: PrivateRoutes.DASHBOARD,
         element: <Dashboard />,
+      },
+      {
+        path: '*',
+        element: <Navigate to={PrivateRoutes.MAIN} />,
       },
     ],
   },
