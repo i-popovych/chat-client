@@ -1,15 +1,21 @@
-import groupReducer from '@/redux/features/groups/groupSlice';
-import projectReducer from '@/redux/features/project/projectSlice';
-import userReducer from '@/redux/features/user/userSlice';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+import { rootReducer } from '@/redux/features';
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
 
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    project: projectReducer,
-    group: groupReducer,
-  },
+  reducer: persistedReducer,
 });
+
+export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

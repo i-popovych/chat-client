@@ -5,8 +5,6 @@ import { useLoading } from '@/hooks/useLoading';
 import { SelectProjectHeader } from './libs/components/SelectProjectHeader';
 
 export const SelectProject = () => {
-
-
   const fetchUserProjects = async () => {
     try {
       const response = await userService.getProjects();
