@@ -8,6 +8,7 @@ import { Group } from 'entities/Group';
 import { groupService } from '@/api/services/group/group.service';
 import { PrivateRoutes } from '@/components/Routes/libs/constants/privateRoutes.enum';
 import { CreateGroupPopup } from '@/components/SideBar/libs/components/CreateGroupPopup';
+import { getRandomInt } from '@/helpers/getRandomInt';
 import { useLoading } from '@/hooks/useLoading';
 import { GroupsList } from '@/pages/dashboard/libs/GroupsList';
 import { setGroup } from '@/redux/features/groups/groupSlice';
@@ -16,6 +17,8 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 type Props = {
   children: React.ReactNode;
 };
+
+const NOTIFICATION = getRandomInt(1, 5);
 
 export const AppHeader: FC<Props> = ({ children }) => {
   const project = useAppSelector((state) => state.project);
@@ -61,8 +64,11 @@ export const AppHeader: FC<Props> = ({ children }) => {
             <FaUser fill='white' size={22} />
             <span className='text-lg text-white'>{userState.user.username}</span>
           </div>
-          <div className='cursor-pointer mr-3'>
+          <div className='cursor-pointer mr-3 relative'>
             <FaBell fill='white' size={22} />
+            <div className='absolute top-[-8px] right-[-2px] w-[17px] h-[17px] bg-[red] flex items-center justify-center rounded-xl'>
+              <span className='text-[.7em]'>{NOTIFICATION}</span>
+            </div>
           </div>
         </div>
         <div className='flex gap-7 text-white text-lg mt-3'>
@@ -76,7 +82,11 @@ export const AppHeader: FC<Props> = ({ children }) => {
             </div>
           </div>
         </div>
-        <div className='mt-2 flex items-center text-lg text-white gap-2'>
+        <div className='mt-2 grow'>
+          <div>Groups:</div>
+          {groupsList && <GroupsList groups={groupsList} handleGroupClick={handleGroupClick} />}
+        </div>
+        <div className='mb-3 flex items-center text-lg text-white gap-2'>
           <div>
             <AiOutlinePlus size={22} fill='white' />
           </div>
@@ -90,10 +100,6 @@ export const AppHeader: FC<Props> = ({ children }) => {
             isOpen={isShowGroupPopup}
             refetchGroups={refetchData}
           />
-        </div>
-        <div className='mt-2'>
-          <div>Groups:</div>
-          {groupsList && <GroupsList groups={groupsList} handleGroupClick={handleGroupClick} />}
         </div>
       </div>
       <div className='w-full'>{children}</div>
