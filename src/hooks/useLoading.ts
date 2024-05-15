@@ -5,9 +5,13 @@ interface UseLoadingResult<T> {
   error: Error | null;
   data: T | null;
   refetchData: () => void;
+  setData: (value: any) => void;
 }
 
-export const useLoading = <T>(callback: () => Promise<T>): UseLoadingResult<T> => {
+export const useLoading = <T>(
+  callback: () => Promise<T>,
+  depps: any[] = []
+): UseLoadingResult<T> => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
   const [data, setData] = useState<T | null>(null);
@@ -34,7 +38,7 @@ export const useLoading = <T>(callback: () => Promise<T>): UseLoadingResult<T> =
     };
 
     fetchData();
-  }, [refetch]);
+  }, [refetch, ...depps]);
 
-  return { loading, error, data, refetchData };
+  return { loading, error, data, refetchData, setData };
 };

@@ -7,6 +7,14 @@ type Props = {
   handleGroupClick: (groupId: number) => void;
 };
 
-export const GroupItem: FC<Props> = ({ group }) => {
-  return <div className='text-lg hover:drop-shadow'>{group.group_name}</div>;
+export const GroupItem: FC<Props> = ({ group, handleGroupClick }) => {
+  const onGroupSelect = () => {
+    handleGroupClick(group.id);
+  };
+
+  return (
+    <div className='text-lg hover:drop-shadow cursor-pointer' onClick={onGroupSelect}>
+      {group.group_name}
+    </div>
+  );
 };

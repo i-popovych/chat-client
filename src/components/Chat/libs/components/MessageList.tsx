@@ -14,6 +14,7 @@ export const MessageList: FC<Props> = ({ messages, userId }) => {
       {messages.map((messageItem) => {
         return (
           <MessageItem
+            key={messageItem.id}
             isIncoming={messageItem.sender_id !== userId}
             message={messageItem.body}
             avatarSrc='https://placehold.co/200x/ffa8e4/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato'
