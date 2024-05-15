@@ -61,7 +61,7 @@ export const AppHeader: FC<Props> = ({ children }) => {
             <FaUser fill='white' size={22} />
             <span className='text-lg text-white'>{userState.user.username}</span>
           </div>
-          <div className='cursor-pointer'>
+          <div className='cursor-pointer mr-3'>
             <FaBell fill='white' size={22} />
           </div>
         </div>

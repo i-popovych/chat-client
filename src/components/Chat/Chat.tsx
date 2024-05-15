@@ -6,7 +6,6 @@ import { User } from 'entities/User';
 
 import { groupService } from '@/api/services/group/group.service';
 import { MessageResponseItem } from '@/api/services/message/libs/MessageResponse.type';
-import { RoomGetConnect } from '@/api/socket/libs/RoomGetConnect.type';
 import { ChatFooter } from '@/components/Chat/libs/components/ChatFooter';
 import { UserListPopup } from '@/components/Chat/libs/components/UserListPopup';
 import { GetMessage } from '@/components/Chat/libs/types/GetMessage.type';
@@ -129,7 +128,7 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
             onClick={onSeeAllUserClick}
             className='text-1xl font-semibold flex items-center gap-2 pr-5 hover:cursor-pointer hover:text-[blue]'
           >
-            <div>{userOnlineCount} online</div>
+            <div>{getRandomInt(10, 25)} online</div>
             <div>
               <FaChevronDown />
             </div>

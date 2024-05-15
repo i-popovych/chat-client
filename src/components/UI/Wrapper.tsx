@@ -5,5 +5,5 @@ type Props = {
 };
 
 export const Wrapper: FC<Props> = ({ children }) => {
-  return <div className='wrapper'>{children}</div>;
+  return <div className='wrapper '>{children}</div>;
 };
