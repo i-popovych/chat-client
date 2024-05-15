@@ -15,7 +15,6 @@ export const GroupItem: FC<Props> = ({ group, handleGroupClick, isSelected }) =>
   };
 
   const color = isSelected ? 'white' : '#d5d2d2';
-  console.log('🚀 ~ isSelected:', isSelected);
 
   return (
     <div

@@ -17,9 +17,9 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
 
   return (
     <div className='accordion'>
-      <div className='flex gap-2 items-center' onClick={toggleAccordion}>
-        <div className='cursor-pointer'>{title}</div>
-        <div className=''>{ToggleImage}</div>
+      <div className='flex gap-2 items-center  hover:cursor-pointer' onClick={toggleAccordion}>
+        <div>{title}</div>
+        <div>{ToggleImage}</div>
       </div>
       {isOpen && <div className='accordion-content'>{content}</div>}
     </div>

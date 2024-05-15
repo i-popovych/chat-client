@@ -1,6 +1,10 @@
 import { FC, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { FaBell, FaChevronDown, FaUser } from 'react-icons/fa6';
+import { FaBookmark } from 'react-icons/fa';
+import { FaBell, FaUser } from 'react-icons/fa6';
+import { IoMdPeople } from 'react-icons/io';
+import { IoChatboxEllipses } from 'react-icons/io5';
+import { RiChatSmileLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 
 import { Group } from 'entities/Group';
@@ -10,6 +14,7 @@ import { PrivateRoutes } from '@/components/Routes/libs/constants/privateRoutes.
 import { BreakLine } from '@/components/SideBar/libs/components/BreakLine';
 import { CreateGroupPopup } from '@/components/SideBar/libs/components/CreateGroupPopup';
 import Accordion from '@/components/UI/Accordion/Accordion';
+import { MenuItem } from '@/components/UI/MenuItem';
 import { getRandomInt } from '@/helpers/getRandomInt';
 import { useLoading } from '@/hooks/useLoading';
 import { GroupsList } from '@/pages/dashboard/libs/GroupsList';
@@ -82,7 +87,11 @@ export const AppHeader: FC<Props> = ({ children }) => {
           </div>
         </div>
         <BreakLine />
-        <div className='mt-2 grow'>
+        <div className='mt-2 grow flex flex-col gap-1'>
+          <MenuItem title='Threads' Icon={IoChatboxEllipses} handleClick={() => {}} />
+          <MenuItem title='Mentions & Reactions' Icon={RiChatSmileLine} handleClick={() => {}} />
+          <MenuItem title='Saved items' Icon={FaBookmark} handleClick={() => {}} />
+          <MenuItem title='People' Icon={IoMdPeople} handleClick={() => {}} />
           <Accordion
             content={
               groupsList && <GroupsList groups={groupsList} handleGroupClick={handleGroupClick} />
@@ -90,6 +99,7 @@ export const AppHeader: FC<Props> = ({ children }) => {
             title={<div>Groups</div>}
           />
         </div>
+
         <div className='mb-3 flex items-center text-lg text-white gap-2'>
           <div>
             <AiOutlinePlus size={22} fill='white' />
