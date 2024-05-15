@@ -9,6 +9,7 @@ import { MessageResponseItem } from '@/api/services/message/libs/MessageResponse
 import { ChatFooter } from '@/components/Chat/libs/components/ChatFooter';
 import { UserListPopup } from '@/components/Chat/libs/components/UserListPopup';
 import { GetMessage } from '@/components/Chat/libs/types/GetMessage.type';
+import { getRandomInt } from '@/helpers/getRandomInt';
 import { Notification } from '@/packages/notification';
 
 import { messageService } from '../../api/services/message/message.service';
@@ -128,7 +129,7 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
             onClick={onSeeAllUserClick}
             className='text-1xl font-semibold flex items-center gap-2 pr-5 hover:cursor-pointer hover:text-[blue]'
           >
-            <div>{getRandomInt(10, 25)} online</div>
+            <div>{getRandomInt    (10, 25)} online</div>
             <div>
               <FaChevronDown />
             </div>

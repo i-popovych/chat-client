@@ -5,12 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { PrivateRoutes } from '@/components/Routes/libs/constants/privateRoutes.enum';
 import { UserAvatar } from '@/components/UserAvatar/UserAvatar';
 import { clearUser } from '@/redux/features/user/userSlice';
+import { useAppSelector } from '@/redux/hooks';
 
 import { authStorage } from '../../../../packages/localStorage/authStorage';
 import { UserStorageKeys } from '../../../../packages/localStorage/enums/userStorageKeys.enum';
 
 export const UserInfo = () => {
   const [isShowModal, setIsShowModal] = useState(false);
+
+  const { user } = useAppSelector((state) => state.user);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,7 +47,8 @@ export const UserInfo = () => {
   };
 
   return (
-    <div className='pr-5 relative'>
+    <div className='pr-5 relative flex items-center gap-4'>
+      <div className='text-xl text-white'>{user?.username}</div>
       <div onClick={onAvatarClick}>
         <UserAvatar />
       </div>

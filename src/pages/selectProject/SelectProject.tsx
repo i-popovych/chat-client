@@ -1,13 +1,11 @@
 import { userService } from '@/api/services/user/user.service';
 import { ProjectList } from '@/components/ProjectList/ProjectList';
-import { UserInfo } from '@/components/UserInfo/UserInfo';
 import { useLoading } from '@/hooks/useLoading';
-import { useAppSelector } from '@/redux/hooks';
 
 import { SelectProjectHeader } from './libs/components/SelectProjectHeader';
 
 export const SelectProject = () => {
-  const { user } = useAppSelector((state) => state.user);
+
 
   const fetchUserProjects = async () => {
     try {
@@ -26,7 +24,11 @@ export const SelectProject = () => {
 
   return (
     <SelectProjectHeader refetchProjects={refetchProjects}>
-      {user && <UserInfo username={user.email} />}
+      <div className='flex justify-center items-center mt-7'>
+        <div>
+          <h1 className='text-4xl'>My projects</h1>
+        </div>
+      </div>
       <div className='flex justify-center mt-5'>
         {projectsLoading && <p>Loading...</p>}
         {projects && <ProjectList projects={projects} />}
