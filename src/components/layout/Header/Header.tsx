@@ -8,7 +8,7 @@ type Props = {
 
 export const Header: FC<Props> = ({ children }) => {
   return (
-    <div className='h-[150px] px-2 bg-[#4a194e] flex'>
+    <div className='h-[110px] px-2 bg-[#4a194e] flex'>
       <div className='w-[60px]  flex justify-center items-center'>
         <img src={Logo} alt='logo' className='w-[100px]' />
       </div>

@@ -3,9 +3,7 @@ import { ProjectList } from '../../components/ProjectList/ProjectList';
 import { UserInfo } from '../../components/UserInfo/UserInfo';
 import { useLoading } from '../../hooks/useLoading';
 import { useAppSelector } from '../../redux/hooks';
-import { CreateProject } from './libs/components/CreateProject';
 import { SelectProjectHeader } from './libs/components/SelectProjectHeader';
-import { ProjectJoin } from './libs/components/ProjectJoin';
 
 export const SelectProject = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -26,13 +24,9 @@ export const SelectProject = () => {
   } = useLoading(fetchUserProjects);
 
   return (
-    <SelectProjectHeader>
+    <SelectProjectHeader refetchProjects={refetchProjects}>
       {user && <UserInfo username={user.email} />}
-      {/* <div className='flex justify-between py-15 items-center'>
-        <CreateProject refetchProjects={refetchProjects} />
-        <ProjectJoin refetchProjects={refetchProjects} />
-      </div> */}
-      <div className='flex justify-center'>
+      <div className='flex justify-center mt-5'>
         {projectsLoading && <p>Loading...</p>}
         {projects && <ProjectList projects={projects} />}
       </div>

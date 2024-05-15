@@ -11,43 +11,44 @@ type Props = {
   handleClose: () => void;
 };
 
-export const ProjectJoinModal: FC<Props> = ({ refetchProjects, handleClose, isOpen }) => {
-  const [projectId, setProjectId] = useState('');
+export const CreateProject: FC<Props> = ({ refetchProjects, handleClose, isOpen }) => {
+  const [projectName, setProjectName] = useState('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProjectId(e.target.value);
+    setProjectName(e.target.value);
   };
 
-  const onJoinProject = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onCreateProject = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     try {
-      await projectService.projectJoin({ project_id: projectId });
-      Notification.success('Project joined successfully');
+      await projectService.postProject({ project_name: projectName });
+      Notification.success('Project created successfully');
+      handleClose();
       refetchProjects();
     } catch (error) {
       console.log('[onCreateProject]', error);
+    } finally {
     }
-
-    e.preventDefault();
   };
 
   return (
     <Popup handleClose={handleClose} isOpen={isOpen}>
       <div>
         <div className='cursor-pointer hover:drop-shadow text-xl text-center font-bold'>
-          Join to the project
+          Create Project
         </div>
 
         <div className='flex gap-1 items-center flex-col mt-4'>
-          <div className='text-[1.1em]'>Project ID</div>
+          <div className='text-[1.1em]'>Project Name</div>
           <div className='mt-2 max-w-[210px]'>
             <input
               type='text'
-              value={projectId}
+              value={projectName}
               onChange={onChange}
               className='block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6'
             />
             <div className='flex mt-4'>
-              <Button text='Join' handleClick={onJoinProject} isFull />
+              <Button text='Create' handleClick={onCreateProject} isFull />
             </div>
           </div>
         </div>
