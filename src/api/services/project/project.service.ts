@@ -9,6 +9,10 @@ class ProjectService {
   projectJoin(params: { project_id: string }) {
     return $baseAPI.get(`projects/join/${params.project_id}`);
   }
+
+  getUsers(projectId: number) {
+    return $baseAPI.get(`projects/${projectId}/users`);
+  }
 }
 
 export const projectService = new ProjectService();

@@ -23,6 +23,10 @@ class GroupService {
   createGroup(params: CreateGroupParams) {
     return $baseAPI.post('group', params);
   }
+
+  addUserToGroup(params: { group_id: number; user_id: number }) {
+    return $baseAPI.post(`group/add-user`, params);
+  }
 }
 
 export const groupService = new GroupService();

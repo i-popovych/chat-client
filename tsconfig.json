@@ -14,6 +14,7 @@
       "@/redux/*": ["./redux/*"],
       "@/hooks/*": ["./hooks/*"],
       "@/helpers/*": ["./helpers/*"],
+      "@/packages/*": ["./packages/*"],
     },
 
     /* Bundler mode */
