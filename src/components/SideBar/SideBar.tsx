@@ -88,11 +88,16 @@ export const AppHeader: FC<Props> = ({ children }) => {
         </div>
         <BreakLine />
         <div className='mt-2 grow flex flex-col gap-1'>
-          <MenuItem title='Threads' Icon={IoChatboxEllipses} handleClick={() => {}} />
-          <MenuItem title='Mentions & Reactions' Icon={RiChatSmileLine} handleClick={() => {}} />
-          <MenuItem title='Saved items' Icon={FaBookmark} handleClick={() => {}} />
-          <MenuItem title='People' Icon={IoMdPeople} handleClick={() => {}} />
+          <div className='my-2'>
+            <MenuItem title='Threads' Icon={IoChatboxEllipses} handleClick={() => {}} />
+            <MenuItem title='Mentions & Reactions' Icon={RiChatSmileLine} handleClick={() => {}} />
+            <MenuItem title='Saved items' Icon={FaBookmark} handleClick={() => {}} />
+            <MenuItem title='People' Icon={IoMdPeople} handleClick={() => {}} />
+          </div>
+
+          <BreakLine />
           <Accordion
+            defaultOpenValue={true}
             content={
               groupsList && <GroupsList groups={groupsList} handleGroupClick={handleGroupClick} />
             }

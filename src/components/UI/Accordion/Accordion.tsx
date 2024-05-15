@@ -4,10 +4,11 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
 interface AccordionProps {
   title: React.ReactNode;
   content: React.ReactNode;
+  defaultOpenValue?: boolean;
 }
 
-const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+const Accordion: React.FC<AccordionProps> = ({ title, content, defaultOpenValue = false }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpenValue);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);

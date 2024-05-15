@@ -1,3 +1,3 @@
 export const BreakLine = () => {
-  return <div className='h-[1px] bg-[gray] w-full ' />;
+  return <div className=' bg-[gray] w-full ' style={{ height: '1px ' }} />;
 };

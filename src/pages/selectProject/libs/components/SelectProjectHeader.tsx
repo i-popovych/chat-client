@@ -9,9 +9,10 @@ import { ProjectJoinModal } from './ProjectJoin';
 type Props = {
   children: React.ReactNode;
   refetchProjects: () => void;
+  isProfile?: boolean;
 };
 
-export const SelectProjectHeader: FC<Props> = ({ children, refetchProjects }) => {
+export const SelectProjectHeader: FC<Props> = ({ children, refetchProjects, isProfile = true }) => {
   const [createProjectModal, setCreateProjectModal] = useState(false);
   const [joinProjectModal, setJoinProjectModal] = useState(false);
 
@@ -49,9 +50,11 @@ export const SelectProjectHeader: FC<Props> = ({ children, refetchProjects }) =>
               <span>Join to the Project</span>
             </div>
           </div>
-          <div className='pr-5'>
-            <UserInfo />
-          </div>
+          {isProfile && (
+            <div className='pr-5'>
+              <UserInfo />
+            </div>
+          )}
         </div>
       </Header>
       <CreateProject

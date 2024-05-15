@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { userService } from '@/api/services/user/user.service';
 import { UserAvatar } from '@/components/UserAvatar/UserAvatar';
 import { AvatarSelectionModal } from '@/pages/profile/libs/AvatarSelectionModal';
+import { SelectProjectHeader } from '@/pages/selectProject/libs/components/SelectProjectHeader';
 import { setUser } from '@/redux/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
@@ -23,27 +24,43 @@ export const Profile = () => {
       const { data: user } = await userService.updateAvatar(avatarName);
 
       dispatch(setUser(user));
+      setIsShowAvatarModal(false);
     } catch (error) {
       Notification.error('Error while updating avatar');
       console.error(error);
     }
   };
 
-  return (
-    <div className='bg-[red] flex flex-col'>
-      <div className=''>
-        <span>{user?.username}</span>
-      </div>
-      <div onClick={onAvatarClick}>
-        <UserAvatar />
-      </div>
+  const renderInfo = (title: string, desc?: string) => {
+    return (
       <div>
-        <AvatarSelectionModal
-          handleClose={() => setIsShowAvatarModal(false)}
-          isOpen={isShowAvatarModal}
-          handleSelectAvatar={onAvatarSelect}
-        />
+        <span>{title} </span>
+        <span>{desc}</span>
       </div>
-    </div>
+    );
+  };
+
+  const userRegisteredDate = user?.createdAt.split('T')[0].replace(/-/g, '.');
+
+  return (
+    <SelectProjectHeader refetchProjects={() => {}} isProfile={false}>
+      <div className=' flex flex-col gap-5 mt-10 items-center '>
+        <div onClick={onAvatarClick} className='cursor-pointer'>
+          <UserAvatar width={130} />
+        </div>
+        <div className=' min-w-[300px] px-2 py-3 gap-2 flex flex-col border border-solid shadow mt-4'>
+          {renderInfo('Username: ', user?.username)}
+          {renderInfo('Email: ', user?.email)}
+          {renderInfo('Date of registarion: ', userRegisteredDate)}
+        </div>
+        <div>
+          <AvatarSelectionModal
+            handleClose={() => setIsShowAvatarModal(false)}
+            isOpen={isShowAvatarModal}
+            handleSelectAvatar={onAvatarSelect}
+          />
+        </div>
+      </div>
+    </SelectProjectHeader>
   );
 };
