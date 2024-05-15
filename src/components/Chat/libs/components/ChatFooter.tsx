@@ -1,11 +1,16 @@
 import { FC, useState } from 'react';
+import { MdOutlineAttachFile } from 'react-icons/md';
+
+import { DropPopup } from '@/components/DropPopup/DropPopup';
 
 type Props = {
-  handleSendMessage: (message: string) => void;
+  handleSendMessage: (message: string, files?: File[]) => void;
 };
 
 export const ChatFooter: FC<Props> = ({ handleSendMessage }) => {
   const [message, setMessage] = useState('');
+  const [isDropZoneOpen, setIsDropZoneOpen] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
   const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -13,13 +18,32 @@ export const ChatFooter: FC<Props> = ({ handleSendMessage }) => {
 
   const onSendMessage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    handleSendMessage(message);
+    handleSendMessage(message, uploadedFiles);
     setMessage('');
+  };
+
+  const onDropZoneClick = () => {
+    setIsDropZoneOpen((prev) => !prev);
+  };
+
+  const onDrop = (acceptedFiles: File[]) => {
+    setUploadedFiles(acceptedFiles);
+    console.log(acceptedFiles);
+  };
+
+  const renderFilesList = () => {
+    return uploadedFiles.map((file) => {
+      return <div key={file.name}>{file.name}</div>;
+    });
   };
 
   return (
     <footer className='bg-white border-t border-gray-300  absolute bottom-0 w-full py-3 px-5'>
+      <DropPopup handleClose={onDropZoneClick} isOpen={isDropZoneOpen} onDrop={onDrop} />
       <div className='flex items-center'>
+        <div onClick={onDropZoneClick} className='mr-2 hover:cursor-pointer'>
+          <MdOutlineAttachFile size={24} />
+        </div>
         <input
           value={message}
           onChange={onChangeMessage}
@@ -34,6 +58,7 @@ export const ChatFooter: FC<Props> = ({ handleSendMessage }) => {
           Send
         </button>
       </div>
+      <div>{renderFilesList()}</div>
     </footer>
   );
 };

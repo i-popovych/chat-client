@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa6';
 
+import { AllUserListModal } from '@/components/Chat/libs/components/AllUserListModal';
 import { ChatFooter } from '@/components/Chat/libs/components/ChatFooter';
 
 import { messageService } from '../../api/services/message/message.service';
@@ -10,7 +11,6 @@ import { useLoading } from '../../hooks/useLoading';
 import { useAppSelector } from '../../redux/hooks';
 import { MessageList } from './libs/components/MessageList';
 import './libs/styles/chat.scss';
-import { AllUserListModal } from '@/components/Chat/libs/components/AllUserListModal';
 
 type Props = {
   currentGroupId: number;
@@ -43,12 +43,19 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
     console.log(data);
   };
 
-  const onSendMessage = (message: string) => {
-    socket.emit(Events.SET_NEW_MESSAGE, {
+  const onSendMessage = (message: string, files?: File[]) => {
+    debugger;
+    const sendObject = {
       groupId: currentGroupId,
       userId: user.user?.id,
       content: message,
-    });
+    } as any;
+
+    if (files && files.length) {
+      sendObject['files'] = files.map((file) => ({ data: file, name: file.name }));
+    }
+
+    socket.emit(Events.SET_NEW_MESSAGE, sendObject);
   };
 
   const onSeeAllUserClick = () => {
@@ -89,7 +96,11 @@ export const Chat: FC<Props> = ({ currentGroupId }) => {
         <MessageList messages={messagesListRes} userId={user.user?.id as number} />
       )}
 
-      <AllUserListModal currentGroupId={currentGroupId} handleClose={onSeeAllUserClick} isOpen={isAllUserModal}/>
+      <AllUserListModal
+        currentGroupId={currentGroupId}
+        handleClose={onSeeAllUserClick}
+        isOpen={isAllUserModal}
+      />
 
       <ChatFooter handleSendMessage={onSendMessage} />
     </div>
